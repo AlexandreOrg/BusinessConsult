@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+      
+
+      <h:head>
+          <title>Accueil et projet</title>
+          <link rel="stylesheet" type="text/css" href="monCSS.css" />
+      </h:head>
+      
+        <h:body>
+
+            <f:view>
+                  
+                <div id="total">
+                    <h:form id="menu">
+                        
+                        <b:navbarLinks class="lesLiensMenu">
+                            <h:link value="Accueil" outcome="accueil" class="unLienDuMenu" />
+                            <h:link value="Statistiques" outcome="statistiques" class="unLienDuMenu" />
+                            <h:link value="Modifier mon profil" outcome="modifProfil" class="unLienDuMenu" />
+                            <h:link value="Se déconnecter" outcome="index" class="unLienDuMenu" />
+                        </b:navbarLinks>
+                    </h:form>
+                  
+                  
+                  
+                    <b:form id="formProjets" horizontal="true" style="overflow: auto">
+                      
+                      <h:outputLabel class="titreProjets">Les projets terminés ou en cours :</h:outputLabel>
+                        <fieldset>
+                            
+                            <div id="buttonAjoutProjet">
+                                <b:commandButton value="Ajouter un projet" action="#{projetsMBean.ajoutProjet()}" look="success" >
+                                    <f:setPropertyActionListener value = "#{consultantsMBean.ztMailConsultant}" target = "#{projetsMBean.mailConsultant}"/>
+                               </b:commandButton>
+                            </div>
+                      
+                        <!--    <h:dataTable value="" var="essaiSQL">
+                                <b:dataTableColumn value="tesst" class="styleColonne" custom-options="false">
+                                    <f:facet name="header">Nom des projets</f:facet>
+                                </b:dataTableColumn>
+                            </h:dataTable>  -->
+                            
+                            
+                            
+                        <b:dataTable value="#{projetsMBean.afficher()}" var="projets" class="tableauProjets" >
+
+                                <b:dataTableColumn class="styleColonne"> <!-- custom-options="false" -->
+                                    
+                                    <f:facet name="header">Modification</f:facet>
+                                    <b:commandButton value="Modifier" action="modifProjets?faces-redirect=true" look="info" > <!--Test avec un return dans la méthode-->
+                                        <f:setPropertyActionListener value="#{projets.libelleProjet}" target="#{projetsMBean.ztNomDuProjet}"/>
+                                        <f:setPropertyActionListener value="#{projets.dateDebutProjet}" target="#{projetsMBean.ztDateDeDebut}"/>
+                                        <f:setPropertyActionListener value="#{projets.dateFinProjet}" target="#{projetsMBean.ztDateDeFin}"/>
+                                        <f:setPropertyActionListener value="#{projets.idProjet}" target="#{projetsMBean.idProjet}"/>
+                                    </b:commandButton>
+                                        
+                                </b:dataTableColumn>
+                                
+                                <b:dataTableColumn value="#{projets.libelleProjet}" class="styleColonne" custom-options="false"> <!-- custom-options="false" -->
+                                    <f:facet name="header">Nom des projets</f:facet>
+                                </b:dataTableColumn>
+                          
+                          
+                                <b:dataTableColumn class="styleColonne">
+                                    <f:facet name="header">Date de début</f:facet>
+                                    <h:outputText value="#{projets.dateDebutProjet}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+                                    </h:outputText>
+                                </b:dataTableColumn>
+
+                                <b:dataTableColumn class="styleColonne">
+                                    <f:facet name="header">Date de fin</f:facet>
+                                    <h:outputText value="#{projets.dateFinProjet}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+                                    </h:outputText>
+                                </b:dataTableColumn>
+                                
+                                <b:dataTableColumn class="styleColonne">
+                                    <f:facet name="header">Aperçu</f:facet>
+                                    <b:commandButton iconAwesome="fa-eye" action="#{etapesMBean.verifDejaCoche()}" >
+                                        <f:setPropertyActionListener value="#{projets.idProjet}" target="#{etapesMBean.idProjet}"/>
+                                        <f:setPropertyActionListener value="#{projets.libelleProjet}" target="#{projetsMBean.ztNomDuProjet}"/>
+                                        <f:setPropertyActionListener value="#{projets.dateDebutProjet}" target="#{projetsMBean.ztDateDeDebut}"/>
+                                        <f:setPropertyActionListener value="#{projets.dateFinProjet}" target="#{projetsMBean.ztDateDeFin}"/>
+                                      <!--  <f:setPropertyActionListener value="#{projetsMBean.idConsultant}" target="#{projetsMBean.idConsultant}"/>-->
+                                    </b:commandButton>
+                        
+                                </b:dataTableColumn>
+                                
+                                <b:dataTableColumn class="styleColonne" style="display:none">
+                                    <f:facet name="header">idProjet</f:facet>
+                                    <h:outputText value="#{projets.idProjet}" />
+                                </b:dataTableColumn>
+                                
+                                <b:dataTableColumn class="styleColonne" style="display:none">
+                                    <f:facet name="header">idConsultant</f:facet>
+                                    <h:outputText value="#{projetsMBean.idConsultant}" />
+                                </b:dataTableColumn>
+                                
+                    
+                          
+                            </b:dataTable>    
+                         
+                        </fieldset>
+                      
+                    </b:form>
+                </div>
+            </f:view>
+        </h:body>
+  
+</html>
+
