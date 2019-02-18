@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+      
+
+      <h:head>
+          <title>Accueil et projet</title>
+          <link rel="stylesheet" type="text/css" href="monCSS.css" />
+      </h:head>
+      
+        <h:body>
+
+            <f:view>
+                  
+                <div id="total">
+                    <h:form id="menu">
+                      
+                        <b:navbarLinks class="lesLiensMenu">
+                            <h:link value="Accueil" outcome="accueil" class="unLienDuMenu" />
+                            <h:link value="Se déconnecter" outcome="index" class="unLienDuMenu" />
+                        </b:navbarLinks>
+                    </h:form>
+                  
+                  
+                  
+                    <b:form id="formProjets" horizontal="true">
+                      
+                      <h:outputLabel class="titreProjets">Modification du projet :</h:outputLabel>
+                        <fieldset>
+                            
+                            <b:inputText id="ztNomDuProjet" value="#{projetsMBean.ztNomDuProjet}" placeholder="Le nom de votre projet" required="true" label="Nom du projet : " colMd="8" labelColMd="3" />
+                            <b:dateTimePicker id="ztDateDebutProjet" value="#{projetsMBean.ztDateDeDebut}" format="DD/MM/YYYY" required="true" label="Date de début : " colMd="8" labelColMd ="3" />
+                            <b:dateTimePicker id="ztDateFinProjet" value="#{projetsMBean.ztDateDeFin}" format="DD/MM/YYYY" required="true" label="Date de fin : " colMd="8" labelColMd ="3" />
+                            
+                            
+                            <b:selectOneMenu id="idDomaine" value="#{projetsMBean.idDomaine}" style="width: 50%; margin: 0 auto" >
+                                <f:selectItems value="#{domainesProjetMBean.creerListeDomaines()}" var="recupDomaine" itemValue="#{recupDomaine.idDomaine}" itemLabel="#{recupDomaine.libelleDomaine}" />
+                            </b:selectOneMenu>
+                            
+                            <b:commandButton value="Modifier" look="success" action="#{projetsMBean.modificationProjet()}" />
+                                
+                            <b:form horizontal="true" >
+                        
+                                <b:commandButton immediate="true" value="Retour" action="accueil?faces-redirect=true" look="danger" />
+
+                            </b:form>
+                            
+                            
+                        </fieldset>
+                      
+                    </b:form>
+                    
+                    
+                </div>
+            </f:view>
+        </h:body>
+  
+</html>
+

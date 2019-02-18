@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+      
+
+      <h:head>
+          <title>Accueil et projet</title>
+          <link rel="stylesheet" type="text/css" href="monCSS.css" />
+      </h:head>
+      
+        <h:body>
+
+            <f:view>
+                  
+                <div id="total">
+                    <h:form id="menu">
+                      
+                        <b:navbarLinks class="lesLiensMenu">
+                            <h:link value="Accueil" outcome="accueil" class="unLienDuMenu" />
+                            <h:link value="Modifier mon profil" outcome="modifProfil" class="unLienDuMenu" />
+                            <h:link value="Se déconnecter" outcome="index" class="unLienDuMenu" />
+                        </b:navbarLinks>
+                    </h:form>
+                  
+                  
+                  
+                    <b:form id="formProjets" horizontal="true">
+                      
+                      <h:outputLabel class="titreProjets">Mon profil :</h:outputLabel>
+                        <fieldset>
+                            
+                            <b:inputText value="#{consultantsMBean.ztNomConsultant}" placeholder="Nom de famille" required="true" label="Votre nom de famille :" colMd="8" labelColMd="3" >
+                                <f:facet name="prepend">
+                                    <b:iconAwesome name="user" />
+                                </f:facet>
+                            </b:inputText>
+                            
+                            <b:inputText value="#{consultantsMBean.ztPrenomConsultant}" placeholder="Prénom" required="true" label="Votre prénom :" colMd="8" labelColMd="3" >
+                                <f:facet name="prepend">
+                                    <b:iconAwesome name="user" />
+                                </f:facet>
+                            </b:inputText>
+                            
+                            <b:inputText value="#{consultantsMBean.ztTelConsultant}" placeholder="Tel" required="true" label="Votre téléphone :" colMd="8" labelColMd="3" >
+                                <f:facet name="prepend">
+                                    <h:outputText value="user" />
+                                </f:facet>
+                            </b:inputText>
+                            
+                            <b:inputText value="#{consultantsMBean.ztMailConsultant}" placeholder="Mail" required="true" label="Votre email :" colMd="8" labelColMd="3" >
+                                <f:facet name="prepend">
+                                    <h:outputText value="@" />
+                                </f:facet>
+                            </b:inputText>
+                            
+                            <b:inputSecret value="#{consultantsMBean.ztPassword}" placeholder="Mot de passe" required="true" label="Votre mot de passe :" colMd="8" labelColMd="3" >
+                                <f:facet name="prepend">
+                                    <b:iconAwesome name="key" />
+                                </f:facet>
+                            </b:inputSecret>
+                            
+                            <b:inputSecret value="#{consultantsMBean.ztPasswordConf}" placeholder="Confirmation du mot de passe" required="true" label="Confirmation :" colMd="8" labelColMd="3" >
+                                <f:facet name="prepend">
+                                    <b:iconAwesome name="key" />
+                                </f:facet>
+                            </b:inputSecret>
+                            
+                            <b:commandButton look="success" value="Valider" iconAwesome="recycle" action="#{consultantsMBean.validModifProfil()}" />
+                            
+                            <b:commandButton immediate="true" look="danger" value="Reset" iconAwesome="recycle" action="modifProfil?faces-redirect=true"/>
+
+                         
+                        </fieldset>
+                      
+                    </b:form>
+                </div>
+            </f:view>
+        </h:body>
+  
+</html>
+

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+      
+      
+      
+
+    <h:head>
+        <title>Accueil et projet</title>
+        <link rel="stylesheet" type="text/css" href="monCSS.css" />
+    </h:head>
+      
+      
+    <h:body>
+        <f:view>
+            <div id="total">
+                <h:form id="menu">
+                    <b:navbarLinks class="lesLiensMenu">
+                        <h:link value="Accueil" outcome="accueil" class="unLienDuMenu" />
+                        <h:link value="Se déconnecter" outcome="index" class="unLienDuMenu" />
+                    </b:navbarLinks>
+                </h:form>
+
+                <b:form id="formProjets" enctype="multipart/form-data" horizontal="true" style="overflow: auto">
+                    <div style="border: 2px solid black; border-radius: 20px">
+                        <h:outputLabel class="titreProjets">Nouvelle étape du projet</h:outputLabel>
+                        <br/>
+                        <h:outputLabel class="titreProjets">#{projetsMBean.ztNomDuProjet}</h:outputLabel>
+                    </div>
+                    
+                    <div style="border: 1px solid black; height:80%; margin-top: 20px; padding-top: 20px">
+                        
+                        <p:growl id="msgs" />
+                        
+                        <b:inputText id="ztNomEtape" value="#{etapesMBean.ztNomEtape}" placeholder="Le nom de l'étape" required="false" label="Saisissez le nom de l'étape : " colMd="7" labelColMd="4" />
+
+                        <b:dateTimePicker id="ztDateDebutEtape" value="#{etapesMBean.ztDateDebutEtape}" format="DD/MM/YYYY" placeholder="Date de début de l'étape" required="false" label="Date de début de l'étape : " colMd="7" labelColMd ="4" />
+
+                        <b:dateTimePicker id="ztDateFinEape" value="#{etapesMBean.ztDateFinEtape}" format="DD/MM/YYYY" placeholder="Date de fin de l'étape" required="false" label="Date de fin de l'étape : " colMd="7" labelColMd ="4" />
+
+                        <b:inputText id="ztMontantPrevu" value="#{etapesMBean.montantPrevu}" placeholder="Montant prévu" required="false" label="Montant prévu de l'étape : " colMd="7" labelColMd="4" />
+
+                        <b:inputText id="ztDureePrevu" value="#{etapesMBean.dureeJourPrevu}" placeholder="Durée prévu (jours)" required="false" label="Durée prévue de l'étape (jours) : " colMd="7" labelColMd="4" />
+                        
+                        <p:selectBooleanButton id="value" value="#{etapesMBean.boolNewEtape}" onLabel="Oui" offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times" style="width:100px">
+                            <p:ajax update="msgs" listener="#{etapesMBean.addMessageNewEtape()}" />
+                        </p:selectBooleanButton>
+                        
+                        <br/><br/>
+                        
+                        <b:commandButton value="Sauvegarder l'étape" action="#{etapesMBean.SauvegardeNewEtape()}" look="info"/>
+                    </div>
+                </b:form>
+            </div>
+        </f:view>
+    </h:body>
+</html>
+

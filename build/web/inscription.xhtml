@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+      
+
+    
+    <h:head>
+
+        <title>Business Consult - Inscription</title>
+        <link rel="stylesheet" type="text/css" href="monCSS.css" />
+    </h:head>
+    
+    
+    <h:body>
+                
+        <f:view>
+            
+                
+                <div id="divInscription" class="centerInscription" style="overflow: auto">
+                    <fieldset>
+                        <b:form horizontal="true">
+                        <legend>Inscription</legend>
+                        <br/>
+
+                        <div id="textInscription">
+                        <h:outputLabel>Formulaire d'inscription :</h:outputLabel>
+                        </div>
+                        <br />
+
+                        <div id="zoneText">
+                            
+                            <b:inputText id="ztNomConsultant" required="true" value="#{consultantsMBean.ztNomConsultant}" placeholder="Nom" label="Votre nom : " colMd="7" labelColMd="4"> <!-- J'étais à 7 et 4 -->
+                                <f:facet name="prepend">
+                                    <b:icon name="user" />
+                                </f:facet>
+                            </b:inputText>
+                            <h:message for="ztNomConsultant" style="color:red;" />
+                            
+                            <b:inputText id="ztPrenomConsultant" required="true" value="#{consultantsMBean.ztPrenomConsultant}" placeholder="Prénom" label="Votre prénom : " colMd="7" labelColMd="4">
+                                <f:facet name="prepend">
+                                    <b:icon name="user" />
+                                </f:facet>
+                            </b:inputText>
+                            <h:message for="ztPrenomConsultant" style="color:red" />
+                            
+                            <b:inputText id="ztTelConsultant" required="true" value="#{consultantsMBean.ztTelConsultant}" placeholder="Tel" label="Votre téléphone : " colMd="7" labelColMd="4">
+                                <f:facet name="prepend">
+                                    <b:icon name="user" />
+                                </f:facet>
+                            </b:inputText>
+                            <h:message for="ztTelConsultant" style="color:red;" />
+                            
+                            <b:inputText id="ztMailConsultant" required="true" value="#{consultantsMBean.ztMailConsultant}" placeholder="Mail" label="Votre Mail : " colMd="7" labelColMd="4">
+                                <f:facet name="prepend">
+                                    <b:icon name="user" />
+                                </f:facet>
+                            </b:inputText>
+                            <h:message for="ztMailConsultant" style="color:red;" />
+                            
+                            <b:inputSecret id="ztPassword" required="true" value="#{consultantsMBean.ztPassword}" placeholder="Mot de passe" label="Mot de passe : " colMd="7" labelColMd="4" >
+                                <f:facet name="prepend">
+                                    <b:iconAwesome name="key" />
+                                </f:facet>
+                            </b:inputSecret>
+                            <h:message for="ztPassword" style="color:red" />
+                            
+                            <b:inputSecret id="ztPasswordConf" required="true" value="#{consultantsMBean.ztPasswordConf}" placeholder="Confirmez le mot de passe" label="Confirmez : " colMd="7" labelColMd="4" >
+                                <f:facet name="prepend">
+                                    <b:iconAwesome name="key" />
+                                </f:facet>
+                            </b:inputSecret>
+                            <h:message for="ztPasswordConf" style="color:red" />
+                        </div>
+
+                        
+                        <div id="buttonValide">
+                            
+                            <b:commandButton value="Inscription" action="#{consultantsMBean.buttonInscription()}" look="info" />
+           
+                        </div>
+                        </b:form>
+                    
+            
+                        <b:form horizontal="true">
+                
+                        <div  id="buttonValide">
+                            <b:button  value="Retour" onclick="$('.formValidationModalClass').modal('show')" look="danger" />
+                            
+                                <b:modal title="Retour à l'accueil" styleClass="formValidationModalClass" closable="false" closeOnEscape="false">
+                                  <b:form>
+                                      <p>Vous quittez le formulaire d'inscription.</p>
+                                      <b:row>
+                                          <b:commandButton largeScreen="full-width" value="Quitter" look="danger" action="index?faces-redirect=true" />
+                                      </b:row>
+                                  </b:form>
+                                </b:modal>
+                        </div>
+                        </b:form>
+                    </fieldset>
+                </div>
+            
+        </f:view>
+        
+    </h:body>
+</html>
+

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+      
+
+      
+      <h:head>
+          <title>Ajout d'un projet</title>
+            <link rel="stylesheet" type="text/css" href="monCSS.css" />
+      </h:head>
+            <h:body>
+
+           
+              <f:view>
+                  
+                <div id="total">
+                    <h:form id="menu">
+
+
+
+                      <b:navbarLinks class="lesLiensMenu">
+                          <!--<b:navCommandLink value="Accueil" class="unLienDuMenu" actionListener=""/>
+                           <b:navCommandLink value="Déconnexion" href="#" class="unLienDuMenu" /> -->
+                          <h:link value="Accueil" outcome="accueil" class="unLienDuMenu" />
+                          <h:link value="Se déconnecter" outcome="index" class="unLienDuMenu" />
+                      </b:navbarLinks>
+
+
+                    </h:form>
+                  
+                  
+                  
+                    <b:form id="formProjets" horizontal="true">
+
+
+                        <b:inputText id="ztNomDuProjet" value="#{projetsMBean.ztNomDuProjet}" placeholder="Le nom de votre projet" required="false" label="Nom du projet : " colMd="8" labelColMd="3" />
+
+                        <b:dateTimePicker id="ztDateDebutProjet" value="#{projetsMBean.ztDateDeDebut}" format="DD/MM/YYYY" placeholder="Date de début du projet" required="false" label="Date de début : " colMd="8" labelColMd ="3" />
+
+                        <b:dateTimePicker id="ztDateFinProjet" value="#{projetsMBean.ztDateDeFin}" format="DD/MM/YYYY" placeholder="Date de fin du projet" required="false" label="Date de fin : " colMd="8" labelColMd ="3" />
+
+                        
+                        <!-- ICI AJOUT D'UNE COMBOBOX POUR LE CHOIX DU DOMAINE -->
+                        <b:selectOneMenu id="idDomaine" value="#{projetsMBean.idDomaine}" style="width: 50%; margin: 0 auto" >
+                            <f:selectItems value="#{domainesProjetMBean.creerListeDomaines()}" var="recupDomaine" itemValue="#{recupDomaine.idDomaine}" itemLabel="#{recupDomaine.libelleDomaine}" />
+                        </b:selectOneMenu>
+
+                        <b:selectOneMenu id="statutChef" value="#{projetsMBean.statutChef}" style="width: 50%; margin: 0 auto" >
+                            <f:selectItems value="#{consultantsMBean.listeDesChefs()}" var="recupChefs" itemValue="#{recupChefs.nomConsultant}" itemLabel="#{recupChefs.nomConsultant}" />
+                        </b:selectOneMenu>
+
+                        <b:commandButton value="Ajouter" action="#{projetsMBean.nouveauProjet()}" look="success" />
+                            
+                <!--        </b:commandButton>-->
+                        <div id="buttonAjoutProjet">
+                            
+                            
+                            
+                    
+                            <b:form horizontal="true">
+                                <b:commandButton immediate="true" value="Retour" action="accueil?faces-redirect=true" look="danger" />
+
+                            </b:form>
+                        </div>
+                    </b:form>
+                      
+                      
+                    
+                      
+                      
+                </div>
+            </f:view>
+         </h:body>
+
+          
+          
+          
+      
+      
+</html>
+

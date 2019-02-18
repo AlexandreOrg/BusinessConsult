@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+      
+      
+      
+
+    <h:head>
+        <title>Accueil et projet</title>
+        <link rel="stylesheet" type="text/css" href="monCSS.css" />
+    </h:head>
+      
+      
+    <h:body>
+        <f:view>
+            <div id="total">
+                <h:form id="menu">
+                    <b:navbarLinks class="lesLiensMenu">
+                        <h:link value="Accueil" outcome="accueil" class="unLienDuMenu" />
+                        <h:link value="Se déconnecter" outcome="index" class="unLienDuMenu" />
+                    </b:navbarLinks>
+                </h:form>
+
+                <b:form id="formProjets" enctype="multipart/form-data" horizontal="true" style="overflow: auto">
+                    <h:outputLabel class="titreProjets">Récapitulatif du projet</h:outputLabel>
+                    <br />
+                    <h:outputLabel class="titreProjets">#{projetsMBean.ztNomDuProjet}</h:outputLabel>
+                    <br />
+                    
+                    <div style="width: 98%">
+                        <b:panelGrid columns="3" style="margin:5% auto">
+                            <b:column>
+                                <h:panelGroup>
+                                    <h:outputLabel value="Date de début du projet :" />
+                                    <br />
+                                    <h:outputLabel value="#{projetsMBean.ztDateDeDebut}" >
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="CET"/>
+                                    </h:outputLabel>
+                                </h:panelGroup>
+                            </b:column>
+                            <b:column>
+                                <b:commandButton value="Afficher la facture" icon="fa fa-print" action="#{printMBean.createPDF()}" ajax="false" onclick="this.form.target='_blank'" look='info'>
+                                    <!-- PASSAGE DES INFORMATIONS NECESSAIRE POUR LE FICHIER PDF -->
+                                    <f:setPropertyActionListener value="#{projetsMBean.ztNomDuProjet}" target="#{printMBean.nomDuProjet}" />
+                                </b:commandButton>
+                            </b:column>
+                            <b:column>
+                                <h:panelGroup>
+                                    <h:outputLabel value="Date de fin du projet :" />
+                                    <br />
+                                    <h:outputLabel value="#{projetsMBean.ztDateDeFin}" >
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="CET"/>
+                                    </h:outputLabel>
+                                </h:panelGroup>
+                            </b:column>
+                        </b:panelGrid>
+
+                            <div style="border: 2px solid graytext; border-radius: 20px; width: 90%; margin: 20px auto">
+
+                                <h4>Choisissez la facture à joindre et cliquez sur "Upload" avant l'envoi du mail :</h4>
+                                <p:fileUpload mode="advanced" value="#{mailgctr.file}" fileUploadListener="#{mailgctr.fileUploadListener}" />
+                                <p:commandButton value="Envoyer le mail" ajax="false" action="#{mailgctr.lancementMail()}" disabled="false" />
+
+                            </div>
+                                
+                                
+                        <div style="margin: 20px auto; width: 95%" >
+                            <b:progressBar id="progressBarEtape" animated="true" autoUpdate="true" auto-update="true" value="#{etapesMBean.maValeur}" min="0" max="100" striped="true" look="warning" />
+
+                            <br />
+                            <div style="border: 2px solid black; width: 50%; margin: 1% auto; padding-bottom: 1%">
+                                
+                                
+                             <!--   <b:dataTable id="maTable" value="#{etapesMBean.leNomEtape()}" var="lstEtp" class="tableauProjets" customOptions="false" >-->
+                                <b:dataTable id="maTable" value="#{etapesMBean.lesEtapes}" var="lstEtp" class="tableauProjets" customOptions="false" >
+                                    <f:ajax render="maTable" />
+                                    
+                                    <b:dataTableColumn class="styleColonne">
+                                        
+                                        <p:growl id="msgs" />
+                                        <f:facet name="header">Etape validée ?</f:facet>
+                                        
+                                        <b:commandButton id="valueee" value="#{lstEtp.checkEtape}" action="#{etapesMBean.testModifCheck()}" style="width:100px" look="#{etapesMBean.couleur}" >
+                                            
+                                            <f:setPropertyActionListener value="#{lstEtp.idEtape}" target="#{etapesMBean.idEtape}" />
+                                            
+                                        </b:commandButton>
+                                    </b:dataTableColumn>
+                                    
+                                    <b:dataTableColumn value="#{lstEtp.nomEtape}" class="styleColonne">
+                                        <f:facet name="header">Etapes du projet :</f:facet>
+                                    </b:dataTableColumn>
+                                    
+                                    <b:dataTableColumn value="#{lstEtp.idEtape}" class="styleColonne">
+                                        <f:facet name="header">Id :</f:facet>
+                                    </b:dataTableColumn>
+
+                                </b:dataTable>
+
+                            </div>
+                            
+                            <div style="border: 2px solid black; width: 35%; margin: 1% auto; padding-bottom: 1%">
+                                <b:commandButton ajax="true" value="Créer une nouvelle étape" look="success" action="nouvelleEtapeProjet?faces-redirect=true" />
+                            </div>
+                        </div>
+                            
+                        </div>
+                        
+                
+                    <b:form style="display: none">
+                        <b:dataTable style="display: none" value="#{etapesMBean.tabDesEtapes()}" var="tabEtapes"  class="tableauProjets">
+                            <b:dataTableColumn value="#{tabEtapes.idEtape}" class="styleColonne" custom-options="false"> <!-- custom-options="false" -->
+                                <f:facet name="header">Id des étapes</f:facet>
+                            </b:dataTableColumn>
+                            <b:dataTableColumn value="#{tabEtapes.checkEtape}" class="styleColonne" custom-options="false"> <!-- custom-options="false" -->
+                                <f:facet name="header">Boolean des étapes</f:facet>
+                            </b:dataTableColumn>
+                            <b:dataTableColumn value="#{tabEtapes.idProjet}" class="styleColonne" custom-options="false"> <!-- custom-options="false" -->
+                                <f:facet name="header">Id du Projet</f:facet>
+                            </b:dataTableColumn>
+                            <b:dataTableColumn value="#{tabEtapes.montantPrevu}" class="styleColonne" custom-options="false"> <!-- custom-options="false" -->
+                                <f:facet name="header">Prix des heures</f:facet>
+                            </b:dataTableColumn>
+                            <b:dataTableColumn value="#{tabEtapes.dureeJourPrevu}" class="styleColonne" custom-options="false"> <!-- custom-options="false" -->
+                                <f:facet name="header">Nombre d'heure</f:facet>
+                            </b:dataTableColumn>
+                        </b:dataTable>
+                    </b:form>
+                </b:form>
+            </div>
+        </f:view>
+    </h:body>
+</html>
+

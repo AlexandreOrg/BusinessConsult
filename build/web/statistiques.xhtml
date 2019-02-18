@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>TODO supply a title</title>
+        <link rel="stylesheet" type="text/css" href="monCSS.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <f:view>
+                  
+            <div id="total">
+                <h:form id="menu">
+
+                    <b:navbarLinks class="lesLiensMenu">
+                        <h:link value="Accueil" outcome="accueil" class="unLienDuMenu" />
+                        <h:link value="Statistiques" outcome="statistiques" class="unLienDuMenu" />
+                        <h:link value="Modifier mon profil" outcome="modifProfil" class="unLienDuMenu" />
+                        <h:link value="Se déconnecter" outcome="index" class="unLienDuMenu" />
+                    </b:navbarLinks>
+                </h:form>
+                
+                <b:form id="formProjets"  style="overflow: auto">
+                    
+                    
+                    <div style="height: 100px">
+                        <p:tabView>
+                            <p:tab title="Projets / Chef">
+
+                                <h:outputLabel value="Sélectionnez le chef de projet" for="listeChefs" />
+
+                                <b:selectOneMenu id="idConsultant" value="#{consultantsMBean.idConsultant}" >
+                                    <f:selectItems value="#{consultantsMBean.listeDesChefs()}" var="consultants"  itemValue="#{consultants.idConsultant}" itemLabel="#{consultants.nomConsultant} #{consultants.prenomConsultant}" />
+                                </b:selectOneMenu>a
+
+                                <h:commandButton value="Valider" action="#{projetsMBean.trouverProjets()}" />
+
+                                <b:dataTable value="#{projetsMBean.trouverProjets()}" var="tabProjet">
+                                    <b:dataTableColumn class="styleColonne">
+                                        <f:facet name="header">Nom du projet</f:facet>
+                                        #{tabProjet.libelleProjet}
+                                    </b:dataTableColumn>
+                                    <b:dataTableColumn  class="styleColonne">
+                                        <f:facet name="header">Date de Debut</f:facet>
+                                        <h:outputText value="#{tabProjet.dateDebutProjet}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>
+                                        </h:outputText>
+                                    </b:dataTableColumn>
+                                    <b:dataTableColumn class="styleColonne">
+                                        <f:facet name="header">Prénom du chef</f:facet>
+                                        <h:outputText value="#{tabProjet.dateFinProjet}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>
+                                        </h:outputText>
+                                    </b:dataTableColumn>
+                                </b:dataTable>
+                            </p:tab>
+                            <p:tab title="Tab Two">
+                                <h:outputText value="Ipsum" />
+                            </p:tab>
+                            <p:tab title="Tab Three">
+                                <h:outputText value="Dolor" />
+                            </p:tab>
+                        </p:tabView>
+                    </div>
+                    
+                </b:form>
+            </div>
+        </f:view>
+    </h:body>
+</html>

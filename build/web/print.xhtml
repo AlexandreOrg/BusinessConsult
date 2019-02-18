@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+      
+
+    
+    <h:head>
+        <title>Facelet Title</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="monCSS.css" />
+    </h:head>
+    
+    
+    <h:body>
+        
+        <div style="height: 100px; text-align: center;">
+            <div style="height: 100px; float: left; margin-left: 10%">
+                <img alt="logo" src="resources/images/logoConsult.jpg" style="height: 100%" />
+            </div>
+            <div style="height: 100%; width: 60%; float: right; margin-right: 10%">
+                <div style="margin-top: 10%"><h3>#{printMBean.nomDuProjet}</h3></div>
+            </div>
+        </div>
+        
+        <br />
+        <br />
+        
+        <p:dataTable value="#{etapesMBean.lstPourPdf}" var="lstEtapes">
+            <p:column>
+                <f:facet name="header">Nom de létape</f:facet>
+                #{lstEtapes.nomEtape}
+            </p:column>
+            <p:column>
+                <f:facet name="header">Prix à lheure</f:facet>
+                #{lstEtapes.montantPrevu} €
+            </p:column>
+            <p:column>
+                <f:facet name="header">Nombre dheure</f:facet>
+                #{lstEtapes.dureeJourPrevu} jours
+            </p:column>
+            <p:column>
+                <f:facet name="header">Total</f:facet>
+                <h:outputText id="ess" value="#{lstEtapes.montantPrevu*lstEtapes.dureeJourPrevu} €" />
+            </p:column>
+        </p:dataTable>
+        
+        <br />
+        
+            
+            
+        <p:dataTable value="#{etapesMBean.sumTotaux()}">
+            <p:column style="text-align: center">
+                <f:facet name="header">Total : </f:facet>
+                #{etapesMBean.chiffreTotal} €
+            </p:column>
+        </p:dataTable>
+
+        <br />
+        
+        <h:panelGrid columns="2" style="text-align: center; height: 150px; width: 100%">
+            <h:outputText value="Cachet et signature de l'entreprise :" />
+            
+            <h:outputText value="Signature du client :" />
+        </h:panelGrid>
+        
+        <br />
+        
+        <div style="height: 130px; width: 100%; text-align: center">
+            <p>Facture établie le : 
+                <h:outputText value="#{projetsMBean.ztDateDeFin}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </p>
+            <p>Business Consult - SIREN : 0000 0000 0000</p>
+            <p>Entreprise de création de sites internet</p>
+        </div>
+    </h:body>
+</html>
+
